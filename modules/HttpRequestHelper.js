@@ -1,13 +1,12 @@
 const https = require('https');
 const querystring=require('querystring');
 const iconv = require('iconv-lite');
-// var querystring=require('querystring');
 
 function HttpRequestHelper(){
     this.get=function(host, path, attr, callback){
         console.log('get');
         var content=querystring.stringify(attr);
-        var url=host + path + "?" + content;
+        var url = "https://" + host + path + "?" + content;
         https.get(url, function (res) {
             var datas = [];
             var size = 0;
@@ -38,14 +37,13 @@ function HttpRequestHelper(){
     this.post=function(host, path, attr, callback){
         console.log('post');
 
-        a = {"category":"","pageNum":0,"pageSize":10,"goodsName":"\u978b","sortColumn":"virtualSales","sortOrder":"desc"};
-        data = JSON.stringify(a);
+        var data = JSON.stringify(attr);
         console.log(data);
         var opt = {
             method: "POST",
-            host: "r5x.ren5xing.com",
+            host: host,
             port: 443,
-            path: "/sch/goods",
+            path: path,
             headers: {
                 "ecp-ct": 'wap',
                 "ecp-cv": '2.0',
